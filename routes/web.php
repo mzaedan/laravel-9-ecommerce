@@ -39,10 +39,16 @@ Route::prefix('admin')
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/product/create', [ProductController::class, 'create_product'])->name('create_product');
-Route::post('/product/store', [ProductController::class, 'store_product'])->name('store_product');
-Route::get('/product', [ProductController::class, 'index_product'])->name('index_product');
-Route::get('/product/{product}', [ProductController::class, 'show_product'])->name('show_product');
+
+//Product
+Route::get('/product/create', [ProductController::class, 'create'])->name('create_product');
+Route::post('/product/store', [ProductController::class, 'store'])->name('store_product');
+Route::get('/product', [ProductController::class, 'index'])->name('index_product');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('show_product');
+Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('edit_product');
+Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('edit_product');
+Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('update_product');
+Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])->name('delete_product');
 
 
 

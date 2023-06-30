@@ -9,21 +9,21 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index_product()
+    public function index()
     {
-        $Products = Product::all();
-
-        return view('index_product', [
-            'products' => $Products
+        $products = Product::paginate(10);
+        
+        return view('pages.product.index', [
+            'products' => $products
         ]);
     }
 
-    public function create_product()
+    public function create()
     {
-        return view('create_product');
+        return view('pages.product.create');
     }
 
-    public function store_product(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -47,11 +47,42 @@ class ProductController extends Controller
             'image' => $path,
         ]);
 
-        return Redirect::route('create_product');
+        return Redirect::route('index_product');
     }
 
-    public function show_product()
+    public function show($id)
     {
-        return view('show_product', compact('product'));
+        $data = Product::findOrFail($id);
+
+        return view('pages.product.view',[
+            'data' => $data
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $item = Product::findOrFail($id);
+
+        return view('pages.product.edit',[
+            'item' => $item
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $item = Product::findOrFail($id);
+        $item->update($data);
+
+        return redirect()->route('index_product');
+    }
+
+    public function delete($id)
+    {
+        $item = Product::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('index_product');
     }
 }

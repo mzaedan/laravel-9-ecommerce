@@ -25,7 +25,7 @@
             <li class="sidebar-title">Menu</li>
             
             <li
-                class="sidebar-item active ">
+                class="sidebar-item">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
@@ -34,7 +34,7 @@
             
             <li
                 class="sidebar-item  ">
-                <a href="form-layout.html" class='sidebar-link'>
+                <a href="{{ route ('index_product') }}" class='sidebar-link'>
                     <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Product</span>
                 </a>
