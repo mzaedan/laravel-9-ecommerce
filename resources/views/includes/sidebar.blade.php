@@ -26,7 +26,7 @@
             
             <li
                 class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route ('dashboard') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -35,7 +35,7 @@
             <li
                 class="sidebar-item  ">
                 <a href="{{ route ('index_product') }}" class='sidebar-link'>
-                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <i class="bi bi-box-seam-fill"></i>
                     <span>Product</span>
                 </a>
             </li>
@@ -43,9 +43,9 @@
             
             <li
                 class="sidebar-item  ">
-                <a href="table.html" class='sidebar-link'>
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Table</span>
+                <a href="{{ route ('show_cart') }}" class='sidebar-link'>
+                    <i class="bi bi-cart4"></i>
+                    <span>Carts</span>
                 </a>
             </li>
         </ul>

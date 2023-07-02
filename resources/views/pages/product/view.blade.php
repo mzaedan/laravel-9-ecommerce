@@ -9,6 +9,16 @@
         </a>
     </header>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="card shadow">
         <div class="card-body">
             <table class="table table-bordered">
@@ -32,6 +42,21 @@
                 </tr>
             </table>
             <a href="{{ route ('index_product') }}" class="btn btn-primary btn-md">Kembali</a>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form action="{{ route('add_to_cart', $data) }}" method="POST">
+                @csrf
+                <div class="col-md-4">
+                    <label>Amount</label>   
+                </div>
+                <div class="col-md-4 form-group">
+                    <input type="number" name="amount" value="1" class="form-control">
+                </div>
+                <button type="submit">Add To Cart</button>
+            </form>
         </div>
     </div>
 </div>

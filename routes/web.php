@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\CartController;
+use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -46,9 +48,18 @@ Route::post('/product/store', [ProductController::class, 'store'])->name('store_
 Route::get('/product', [ProductController::class, 'index'])->name('index_product');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('show_product');
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('edit_product');
-Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('edit_product');
 Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('update_product');
 Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])->name('delete_product');
+
+//Cart
+Route::post('cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
+Route::get('/cart/edit/{id}', [CartController::class, 'edit'])->name('edit_cart');
+Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('update_cart');
+Route::delete('/cart/{cart}', [CartController::class, 'delete_cart'])->name('delete_cart');
+
+
+
 
 
 
