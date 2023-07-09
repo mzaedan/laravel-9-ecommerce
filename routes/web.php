@@ -3,7 +3,9 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -57,6 +59,14 @@ Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
 Route::get('/cart/edit/{id}', [CartController::class, 'edit'])->name('edit_cart');
 Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('update_cart');
 Route::delete('/cart/{cart}', [CartController::class, 'delete_cart'])->name('delete_cart');
+
+//Checkout
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+
+//Order
+Route::get('/order', [OrderController::class, 'index'])->name('index_order');
+Route::get('/order/{id}', [OrderController::class, 'show'])->name('show_order');
+Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
 
 
 

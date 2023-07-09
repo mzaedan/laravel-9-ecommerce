@@ -48,6 +48,15 @@
                     <span>Carts</span>
                 </a>
             </li>
+
+            <li
+                class="sidebar-item  ">
+                <a href="{{ route ('index_order') }}" class='sidebar-link'>
+                    <i class="bi bi-cart-check-fill"></i>
+                    <span>Order</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </div>

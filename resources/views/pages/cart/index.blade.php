@@ -15,10 +15,13 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                        <a href="{{ route('create_product') }}" class="btn btn-sm btn-primary shadow-sm mb-3">
-                            <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Cart
-                        </a>
                         <div class="table-responsive">
+                        <form action="{{ route('checkout') }}" method="POST">
+                             @csrf
+                            <button type="submit" class="btn btn-primary mb-3">Checkout <i class="bi bi-cart-check"></i></button>
+                            
+                        </form>
+
                             <table class="tabel table-bordered" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -54,10 +57,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
