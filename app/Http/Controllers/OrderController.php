@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();
-        return view('pages.order.index',[
+        return view('pages.order.index', [
             'orders' => $orders
         ]);
     }
@@ -27,8 +27,7 @@ class OrderController extends Controller
         $user_id = Auth::id();
         $carts = Cart::where('user_id', $user_id)->get();
 
-        if($carts == null)
-        {
+        if ($carts == null) {
             return Redirect::back();
         }
 
@@ -38,11 +37,11 @@ class OrderController extends Controller
 
         foreach ($carts as $cart) {
 
-           $product =  Product::find($cart->product_id);
+            $product =  Product::find($cart->product_id);
 
-           $product->update([
+            $product->update([
                 'stock' => $product->stock - $cart->amount
-           ]);
+            ]);
 
             Transaction::create([
                 'amount' => $cart->amount,
@@ -60,7 +59,7 @@ class OrderController extends Controller
     {
         $data = Order::findOrFail($id);
 
-        return view('pages.order.view',[
+        return view('pages.order.view', [
             'data' => $data
         ]);
     }
@@ -68,12 +67,21 @@ class OrderController extends Controller
     public function submit_payment_receipt(Order $order, Request $request)
     {
         $file = $request->file('payment_receipt');
-        $path = time(). '_' . $order->id . '.' .$file->getClientOriginalExtension();
+        $path = time() . '_' . $order->id . '.' . $file->getClientOriginalExtension();
 
-        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+        Storage::disk('local')->put('storage/' . $path, file_get_contents($file));
 
         $order->update([
             'payment_receipt' => $path
+        ]);
+
+        return Redirect::back();
+    }
+
+    public function confirm_payment(Order $order)
+    {
+        $order->update([
+            'is_paid' => true
         ]);
 
         return Redirect::back();

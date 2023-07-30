@@ -35,9 +35,9 @@ Auth::routes();
 //Dashboard
 Route::prefix('admin')
     ->namespace('Admin')
-    ->group(function() {
+    ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])
-        ->name('dashboard');
+            ->name('dashboard');
     });
 
 
@@ -67,9 +67,4 @@ Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout')
 Route::get('/order', [OrderController::class, 'index'])->name('index_order');
 Route::get('/order/{id}', [OrderController::class, 'show'])->name('show_order');
 Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
-
-
-
-
-
-
+Route::post('/order{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');

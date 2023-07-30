@@ -12,7 +12,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(10);
-        
+
         return view('pages.product.index', [
             'products' => $products
         ]);
@@ -34,9 +34,9 @@ class ProductController extends Controller
         ]);
 
         $file = $request->file('image');
-        $path = time(). '_' . $request->name . '.' .$file->getClientOriginalExtension();
+        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
 
-        Storage::disk('local')->put('public/'. $path, file_get_contents($file));
+        Storage::disk('local')->put('public/' . $path, file_get_contents($file));
 
 
         Product::create([
@@ -54,7 +54,7 @@ class ProductController extends Controller
     {
         $data = Product::findOrFail($id);
 
-        return view('pages.product.view',[
+        return view('pages.product.view', [
             'data' => $data
         ]);
     }
@@ -63,17 +63,33 @@ class ProductController extends Controller
     {
         $item = Product::findOrFail($id);
 
-        return view('pages.product.edit',[
+        return view('pages.product.edit', [
             'item' => $item
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Product $product, Request $request)
     {
-        $data = $request->all();
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'stock' => 'required',
+            'description' => 'required',
+            'image' => 'required'
+        ]);
 
-        $item = Product::findOrFail($id);
-        $item->update($data);
+        $file = $request->file('image');
+        $path = time() . '_' . $request->name . '.' . $file->getClientOriginalExtension();
+
+        Storage::disk('local')->put('public/' . $path, file_get_contents($file));
+
+        $product->update([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'description' => $request->description,
+            'image' => $path
+        ]);
 
         return redirect()->route('index_product');
     }

@@ -20,26 +20,21 @@ class CartController extends Controller
         $user_id = Auth::id();
         $product_id = $product->id;
 
-        // dd($user_id);
-
-       $existing_cart = Cart::where('product_id', $product_id)
+        $existing_cart = Cart::where('product_id', $product_id)
             ->where('user_id', $user_id)
             ->first();
 
-        if($existing_cart == null)
-        {
+        if ($existing_cart == null) {
             $request->validate([
                 'amount' => 'required|gte:1|lte:' . $product->stock
             ]);
-    
+
             Cart::create([
                 'user_id' => $user_id,
                 'product_id' => $product_id,
                 'amount' => $request->amount
             ]);
-        }
-        else
-        {
+        } else {
             $request->validate([
                 'amount' => 'required|gte:1|lte:' . ($product->stock - $existing_cart->amount)
             ]);
@@ -67,7 +62,7 @@ class CartController extends Controller
     {
         $item = Cart::findOrFail($id);
 
-        return view('pages.cart.edit',[
+        return view('pages.cart.edit', [
             'item' => $item
         ]);
     }
@@ -97,6 +92,4 @@ class CartController extends Controller
         $cart->delete();
         return Redirect::back();
     }
-
-
 }

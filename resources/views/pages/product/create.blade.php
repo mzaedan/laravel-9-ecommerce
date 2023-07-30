@@ -26,29 +26,25 @@
                                             <label>Name</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" class="form-control" name="name"
-                                                placeholder="Name">
+                                            <input type="text" class="form-control" name="name" placeholder="Name">
                                         </div>
                                         <div class="col-md-4">
                                             <label>Price</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                        <input type="number" class="form-control" name="price"
-                                                placeholder="Price">
+                                            <input type="number" class="form-control" name="price" placeholder="Price">
                                         </div>
                                         <div class="col-md-4">
                                             <label>Description</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="text" class="form-control" name="description"
-                                                placeholder="Description">
+                                            <input type="text" class="form-control" name="description" placeholder="Description">
                                         </div>
                                         <div class="col-md-4">
                                             <label>stock</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <input type="number" class="form-control" name="stock"
-                                                placeholder="Stock">
+                                            <input type="number" class="form-control" name="stock" placeholder="Stock">
                                         </div>
                                         <div class="col-md-4">
                                             <label>Image</label>
@@ -58,8 +54,7 @@
                                         </div>
                                         <div class="col-sm-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                            <button type="reset"
-                                                class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
                                         </div>
                                     </div>
                                 </div>
