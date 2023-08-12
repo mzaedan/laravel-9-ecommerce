@@ -38,39 +38,47 @@ Auth::routes();
 Route::prefix('admin')
     ->namespace('Admin')
     ->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])
-            ->name('dashboard');
     });
 
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware(['admin'])->group(function () {
+    Route::get('/product/create', [ProductController::class, 'create'])->name('create_product');
+    Route::post('/product/store', [ProductController::class, 'store'])->name('store_product');
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('show_product');
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('edit_product');
+    Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('update_product');
+    Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])->name('delete_product');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard');
+});
+
 //Product
-Route::get('/product/create', [ProductController::class, 'create'])->name('create_product');
-Route::post('/product/store', [ProductController::class, 'store'])->name('store_product');
 Route::get('/product', [ProductController::class, 'index'])->name('index_product');
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('show_product');
-Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('edit_product');
-Route::post('/product/update/{product}', [ProductController::class, 'update'])->name('update_product');
-Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])->name('delete_product');
 
 //Cart
-Route::post('cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
-Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
-Route::get('/cart/edit/{id}', [CartController::class, 'edit'])->name('edit_cart');
-Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('update_cart');
-Route::delete('/cart/{cart}', [CartController::class, 'delete_cart'])->name('delete_cart');
+Route::middleware(['auth'])->group(function () {
 
-//Checkout
-Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+    Route::post('cart/{product}', [CartController::class, 'add_to_cart'])->name('add_to_cart');
+    Route::get('/cart', [CartController::class, 'show_cart'])->name('show_cart');
+    Route::get('/cart/edit/{id}', [CartController::class, 'edit'])->name('edit_cart');
+    Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('update_cart');
+    Route::delete('/cart/{cart}', [CartController::class, 'delete_cart'])->name('delete_cart');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-//Order
-Route::get('/order', [OrderController::class, 'index'])->name('index_order');
-Route::get('/order/{id}', [OrderController::class, 'show'])->name('show_order');
-Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
-Route::post('/order{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
+    //Checkout
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 
-//Profile
-Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
-Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
+    //Order
+    Route::get('/order', [OrderController::class, 'index'])->name('index_order');
+    Route::get('/order/{id}', [OrderController::class, 'show'])->name('show_order');
+    Route::post('/order/{order}/pay', [OrderController::class, 'submit_payment_receipt'])->name('submit_payment_receipt');
+    Route::post('/order{order}/confirm', [OrderController::class, 'confirm_payment'])->name('confirm_payment');
+
+    //Profile
+    Route::get('/profile', [ProfileController::class, 'show_profile'])->name('show_profile');
+    Route::post('/profile', [ProfileController::class, 'edit_profile'])->name('edit_profile');
+});

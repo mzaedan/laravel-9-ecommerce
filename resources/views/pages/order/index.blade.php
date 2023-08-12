@@ -15,9 +15,6 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                            <a href="{{ route('create_product') }}" class="btn btn-sm btn-primary shadow-sm mb-3">
-                                <i class="fas fa-plus fa-sm text-white-50"></i>Tambah Order
-                            </a>
                             <div class="table-responsive">
                                 <table class="tabel table-bordered" width="100%" cellspacing="0">
                                     <thead>
@@ -37,9 +34,6 @@
                                             <td style="text-align: center;">{{ $order->created_at }}</td>
                                             <td style="text-align: center;">@if ($order->is_paid == true) PAID @else UNPAID @endif</td>
                                             <td style="text-align: center; width:200px">
-                                                <a href="{{ route('show_order', $order->id) }}" class="btn btn-info">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
                                                 @if ($order->is_paid)
                                                 <a href="{{url ('storage/' . $order->payment_receipt)}}" class="btn btn-info">
                                                     <i class=" bi bi-images"></i>
